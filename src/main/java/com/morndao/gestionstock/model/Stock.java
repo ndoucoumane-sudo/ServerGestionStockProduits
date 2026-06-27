@@ -42,8 +42,9 @@ public class Stock {
     private StockStatus stockStatus;
 
     @PostLoad
+    @PrePersist
     @PreUpdate
-    public void refreshStatus() {
+    void refreshStatus() {
         if (quantity == 0) {
             this.stockStatus = StockStatus.OUT_OF_STOCK;
         } else if (quantity <= minQuantity) {

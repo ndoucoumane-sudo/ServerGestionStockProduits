@@ -51,7 +51,6 @@ public class StockService {
                 .minQuantity(minQuantity)
                 .stockStatus(Stock.StockStatus.AVAILABLE)
                 .build();
-        stock.refreshStatus();
         return stockRepository.save(stock);
     }
 
@@ -59,7 +58,6 @@ public class StockService {
     public Stock addQuantity(Long productId, int quantity) {
         Stock stock = findByProduct(productId);
         stock.setQuantity(stock.getQuantity() + quantity);
-        stock.refreshStatus();
         return stockRepository.save(stock);
     }
 
@@ -70,7 +68,6 @@ public class StockService {
             throw new RuntimeException("Stock insuffisant. Disponible : " + stock.getQuantity());
         }
         stock.setQuantity(stock.getQuantity() - quantity);
-        stock.refreshStatus();
         return stockRepository.save(stock);
     }
 }
